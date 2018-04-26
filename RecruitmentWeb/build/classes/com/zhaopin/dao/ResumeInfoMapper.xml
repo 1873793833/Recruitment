@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhaopin.dao.ResumeInfoMapper">
+	<resultMap id="BaseResultMap" type="com.zhaopin.model.ResumeInfo">
+		<id column="r_id" property="rId" jdbcType="INTEGER" />
+		<result column="r_name" property="rName" jdbcType="VARCHAR" />
+		<result column="r_sex" property="rSex" jdbcType="VARCHAR" />
+		<result column="r_data_of_birth" property="rDataOfBirth"
+			jdbcType="TIMESTAMP" />
+		<result column="r_tel" property="rTel" jdbcType="VARCHAR" />
+		<result column="r_nation" property="rNation" jdbcType="VARCHAR" />
+		<result column="r_email" property="rEmail" jdbcType="VARCHAR" />
+		<result column="r_post_code" property="rPostCode" jdbcType="INTEGER" />
+		<result column="r_position" property="rPosition" jdbcType="VARCHAR" />
+		<result column="r_domicile" property="rDomicile" jdbcType="VARCHAR" />
+		<result column="r_skill_specialty" property="rSkillSpecialty"
+			jdbcType="VARCHAR" />
+		<result column="r_hobby" property="rHobby" jdbcType="VARCHAR" />
+		<result column="r_education_bg" property="rEducationBg"
+			jdbcType="VARCHAR" />
+		<result column="r_major" property="rMajor" jdbcType="VARCHAR" />
+		<result column="r_graduate_school" property="rGraduateSchool"
+			jdbcType="VARCHAR" />
+		<result column="r_experience" property="rExperience" jdbcType="VARCHAR" />
+		<result column="r_evaluation" property="rEvaluation" jdbcType="VARCHAR" />
+		<result column="submission_date" property="submissionDate"
+			jdbcType="TIMESTAMP" />
+		<result column="drafts" property="drafts" jdbcType="VARCHAR" />
+		<result column="r_state" property="rState" jdbcType="INTEGER" />
+		<result column="individual_id" property="individualId"
+			jdbcType="INTEGER" />
+		<result column="recruitment_infoid" property="recruitmentInfoid"
+			jdbcType="INTEGER" />
+		<result column="e_id" property="eId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		r_id, r_name, r_sex, r_data_of_birth, r_tel, r_nation, r_email,
+		r_post_code, r_position,
+		r_domicile, r_skill_specialty, r_hobby, r_education_bg, r_major,
+		r_graduate_school,
+		r_experience, r_evaluation, submission_date, drafts, r_state, individual_id,
+		recruitment_infoid,
+		e_id
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.zhaopin.model.ResumeInfoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from resume_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from resume_info
+		where r_id = #{rId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from resume_info
+		where r_id = #{rId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.zhaopin.model.ResumeInfoExample">
+		delete from resume_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.zhaopin.model.ResumeInfo">
+		insert into resume_info (r_id, r_name, r_sex,
+		r_data_of_birth, r_tel, r_nation,
+		r_email, r_post_code, r_position,
+		r_domicile, r_skill_specialty, r_hobby,
+		r_education_bg, r_major, r_graduate_school,
+		r_experience, r_evaluation, submission_date,
+		drafts, r_state, individual_id,
+		recruitment_infoid, e_id)
+		values (#{rId,jdbcType=INTEGER}, #{rName,jdbcType=VARCHAR},
+		#{rSex,jdbcType=VARCHAR},
+		#{rDataOfBirth,jdbcType=TIMESTAMP}, #{rTel,jdbcType=VARCHAR}, #{rNation,jdbcType=VARCHAR},
+		#{rEmail,jdbcType=VARCHAR}, #{rPostCode,jdbcType=INTEGER},
+		#{rPosition,jdbcType=VARCHAR},
+		#{rDomicile,jdbcType=VARCHAR}, #{rSkillSpecialty,jdbcType=VARCHAR}, #{rHobby,jdbcType=VARCHAR},
+		#{rEducationBg,jdbcType=VARCHAR}, #{rMajor,jdbcType=VARCHAR},
+		#{rGraduateSchool,jdbcType=VARCHAR},
+		#{rExperience,jdbcType=VARCHAR}, #{rEvaluation,jdbcType=VARCHAR},
+		#{submissionDate,jdbcType=TIMESTAMP},
+		#{drafts,jdbcType=VARCHAR}, #{rState,jdbcType=INTEGER}, #{individualId,jdbcType=INTEGER},
+		#{recruitmentInfoid,jdbcType=INTEGER}, #{eId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zhaopin.model.ResumeInfo">
+		insert into resume_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rId != null">
+				r_id,
+			</if>
+			<if test="rName != null">
+				r_name,
+			</if>
+			<if test="rSex != null">
+				r_sex,
+			</if>
+			<if test="rDataOfBirth != null">
+				r_data_of_birth,
+			</if>
+			<if test="rTel != null">
+				r_tel,
+			</if>
+			<if test="rNation != null">
+				r_nation,
+			</if>
+			<if test="rEmail != null">
+				r_email,
+			</if>
+			<if test="rPostCode != null">
+				r_post_code,
+			</if>
+			<if test="rPosition != null">
+				r_position,
+			</if>
+			<if test="rDomicile != null">
+				r_domicile,
+			</if>
+			<if test="rSkillSpecialty != null">
+				r_skill_specialty,
+			</if>
+			<if test="rHobby != null">
+				r_hobby,
+			</if>
+			<if test="rEducationBg != null">
+				r_education_bg,
+			</if>
+			<if test="rMajor != null">
+				r_major,
+			</if>
+			<if test="rGraduateSchool != null">
+				r_graduate_school,
+			</if>
+			<if test="rExperience != null">
+				r_experience,
+			</if>
+			<if test="rEvaluation != null">
+				r_evaluation,
+			</if>
+			<if test="submissionDate != null">
+				submission_date,
+			</if>
+			<if test="drafts != null">
+				drafts,
+			</if>
+			<if test="rState != null">
+				r_state,
+			</if>
+			<if test="individualId != null">
+				individual_id,
+			</if>
+			<if test="recruitmentInfoid != null">
+				recruitment_infoid,
+			</if>
+			<if test="eId != null">
+				e_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rId != null">
+				#{rId,jdbcType=INTEGER},
+			</if>
+			<if test="rName != null">
+				#{rName,jdbcType=VARCHAR},
+			</if>
+			<if test="rSex != null">
+				#{rSex,jdbcType=VARCHAR},
+			</if>
+			<if test="rDataOfBirth != null">
+				#{rDataOfBirth,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rTel != null">
+				#{rTel,jdbcType=VARCHAR},
+			</if>
+			<if test="rNation != null">
+				#{rNation,jdbcType=VARCHAR},
+			</if>
+			<if test="rEmail != null">
+				#{rEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="rPostCode != null">
+				#{rPostCode,jdbcType=INTEGER},
+			</if>
+			<if test="rPosition != null">
+				#{rPosition,jdbcType=VARCHAR},
+			</if>
+			<if test="rDomicile != null">
+				#{rDomicile,jdbcType=VARCHAR},
+			</if>
+			<if test="rSkillSpecialty != null">
+				#{rSkillSpecialty,jdbcType=VARCHAR},
+			</if>
+			<if test="rHobby != null">
+				#{rHobby,jdbcType=VARCHAR},
+			</if>
+			<if test="rEducationBg != null">
+				#{rEducationBg,jdbcType=VARCHAR},
+			</if>
+			<if test="rMajor != null">
+				#{rMajor,jdbcType=VARCHAR},
+			</if>
+			<if test="rGraduateSchool != null">
+				#{rGraduateSchool,jdbcType=VARCHAR},
+			</if>
+			<if test="rExperience != null">
+				#{rExperience,jdbcType=VARCHAR},
+			</if>
+			<if test="rEvaluation != null">
+				#{rEvaluation,jdbcType=VARCHAR},
+			</if>
+			<if test="submissionDate != null">
+				#{submissionDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="drafts != null">
+				#{drafts,jdbcType=VARCHAR},
+			</if>
+			<if test="rState != null">
+				#{rState,jdbcType=INTEGER},
+			</if>
+			<if test="individualId != null">
+				#{individualId,jdbcType=INTEGER},
+			</if>
+			<if test="recruitmentInfoid != null">
+				#{recruitmentInfoid,jdbcType=INTEGER},
+			</if>
+			<if test="eId != null">
+				#{eId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.zhaopin.model.ResumeInfoExample"
+		resultType="java.lang.Integer">
+		select count(*) from resume_info
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update resume_info
+		<set>
+			<if test="record.rId != null">
+				r_id = #{record.rId,jdbcType=INTEGER},
+			</if>
+			<if test="record.rName != null">
+				r_name = #{record.rName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rSex != null">
+				r_sex = #{record.rSex,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rDataOfBirth != null">
+				r_data_of_birth = #{record.rDataOfBirth,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.rTel != null">
+				r_tel = #{record.rTel,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rNation != null">
+				r_nation = #{record.rNation,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rEmail != null">
+				r_email = #{record.rEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rPostCode != null">
+				r_post_code = #{record.rPostCode,jdbcType=INTEGER},
+			</if>
+			<if test="record.rPosition != null">
+				r_position = #{record.rPosition,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rDomicile != null">
+				r_domicile = #{record.rDomicile,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rSkillSpecialty != null">
+				r_skill_specialty = #{record.rSkillSpecialty,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rHobby != null">
+				r_hobby = #{record.rHobby,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rEducationBg != null">
+				r_education_bg = #{record.rEducationBg,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rMajor != null">
+				r_major = #{record.rMajor,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rGraduateSchool != null">
+				r_graduate_school = #{record.rGraduateSchool,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rExperience != null">
+				r_experience = #{record.rExperience,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rEvaluation != null">
+				r_evaluation = #{record.rEvaluation,jdbcType=VARCHAR},
+			</if>
+			<if test="record.submissionDate != null">
+				submission_date = #{record.submissionDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.drafts != null">
+				drafts = #{record.drafts,jdbcType=VARCHAR},
+			</if>
+			<if test="record.rState != null">
+				r_state = #{record.rState,jdbcType=INTEGER},
+			</if>
+			<if test="record.individualId != null">
+				individual_id = #{record.individualId,jdbcType=INTEGER},
+			</if>
+			<if test="record.recruitmentInfoid != null">
+				recruitment_infoid = #{record.recruitmentInfoid,jdbcType=INTEGER},
+			</if>
+			<if test="record.eId != null">
+				e_id = #{record.eId,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update resume_info
+		set r_id = #{record.rId,jdbcType=INTEGER},
+		r_name = #{record.rName,jdbcType=VARCHAR},
+		r_sex = #{record.rSex,jdbcType=VARCHAR},
+		r_data_of_birth = #{record.rDataOfBirth,jdbcType=TIMESTAMP},
+		r_tel = #{record.rTel,jdbcType=VARCHAR},
+		r_nation = #{record.rNation,jdbcType=VARCHAR},
+		r_email = #{record.rEmail,jdbcType=VARCHAR},
+		r_post_code = #{record.rPostCode,jdbcType=INTEGER},
+		r_position = #{record.rPosition,jdbcType=VARCHAR},
+		r_domicile = #{record.rDomicile,jdbcType=VARCHAR},
+		r_skill_specialty = #{record.rSkillSpecialty,jdbcType=VARCHAR},
+		r_hobby = #{record.rHobby,jdbcType=VARCHAR},
+		r_education_bg = #{record.rEducationBg,jdbcType=VARCHAR},
+		r_major = #{record.rMajor,jdbcType=VARCHAR},
+		r_graduate_school = #{record.rGraduateSchool,jdbcType=VARCHAR},
+		r_experience = #{record.rExperience,jdbcType=VARCHAR},
+		r_evaluation = #{record.rEvaluation,jdbcType=VARCHAR},
+		submission_date = #{record.submissionDate,jdbcType=TIMESTAMP},
+		drafts = #{record.drafts,jdbcType=VARCHAR},
+		r_state = #{record.rState,jdbcType=INTEGER},
+		individual_id = #{record.individualId,jdbcType=INTEGER},
+		recruitment_infoid = #{record.recruitmentInfoid,jdbcType=INTEGER},
+		e_id = #{record.eId,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zhaopin.model.ResumeInfo">
+		update resume_info
+		<set>
+			<if test="rName != null">
+				r_name = #{rName,jdbcType=VARCHAR},
+			</if>
+			<if test="rSex != null">
+				r_sex = #{rSex,jdbcType=VARCHAR},
+			</if>
+			<if test="rDataOfBirth != null">
+				r_data_of_birth = #{rDataOfBirth,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rTel != null">
+				r_tel = #{rTel,jdbcType=VARCHAR},
+			</if>
+			<if test="rNation != null">
+				r_nation = #{rNation,jdbcType=VARCHAR},
+			</if>
+			<if test="rEmail != null">
+				r_email = #{rEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="rPostCode != null">
+				r_post_code = #{rPostCode,jdbcType=INTEGER},
+			</if>
+			<if test="rPosition != null">
+				r_position = #{rPosition,jdbcType=VARCHAR},
+			</if>
+			<if test="rDomicile != null">
+				r_domicile = #{rDomicile,jdbcType=VARCHAR},
+			</if>
+			<if test="rSkillSpecialty != null">
+				r_skill_specialty = #{rSkillSpecialty,jdbcType=VARCHAR},
+			</if>
+			<if test="rHobby != null">
+				r_hobby = #{rHobby,jdbcType=VARCHAR},
+			</if>
+			<if test="rEducationBg != null">
+				r_education_bg = #{rEducationBg,jdbcType=VARCHAR},
+			</if>
+			<if test="rMajor != null">
+				r_major = #{rMajor,jdbcType=VARCHAR},
+			</if>
+			<if test="rGraduateSchool != null">
+				r_graduate_school = #{rGraduateSchool,jdbcType=VARCHAR},
+			</if>
+			<if test="rExperience != null">
+				r_experience = #{rExperience,jdbcType=VARCHAR},
+			</if>
+			<if test="rEvaluation != null">
+				r_evaluation = #{rEvaluation,jdbcType=VARCHAR},
+			</if>
+			<if test="submissionDate != null">
+				submission_date = #{submissionDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="drafts != null">
+				drafts = #{drafts,jdbcType=VARCHAR},
+			</if>
+			<if test="rState != null">
+				r_state = #{rState,jdbcType=INTEGER},
+			</if>
+			<if test="individualId != null">
+				individual_id = #{individualId,jdbcType=INTEGER},
+			</if>
+			<if test="recruitmentInfoid != null">
+				recruitment_infoid = #{recruitmentInfoid,jdbcType=INTEGER},
+			</if>
+			<if test="eId != null">
+				e_id = #{eId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where r_id = #{rId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zhaopin.model.ResumeInfo">
+		update resume_info
+		set r_name = #{rName,jdbcType=VARCHAR},
+		r_sex = #{rSex,jdbcType=VARCHAR},
+		r_data_of_birth = #{rDataOfBirth,jdbcType=TIMESTAMP},
+		r_tel = #{rTel,jdbcType=VARCHAR},
+		r_nation = #{rNation,jdbcType=VARCHAR},
+		r_email = #{rEmail,jdbcType=VARCHAR},
+		r_post_code = #{rPostCode,jdbcType=INTEGER},
+		r_position = #{rPosition,jdbcType=VARCHAR},
+		r_domicile = #{rDomicile,jdbcType=VARCHAR},
+		r_skill_specialty = #{rSkillSpecialty,jdbcType=VARCHAR},
+		r_hobby = #{rHobby,jdbcType=VARCHAR},
+		r_education_bg = #{rEducationBg,jdbcType=VARCHAR},
+		r_major = #{rMajor,jdbcType=VARCHAR},
+		r_graduate_school = #{rGraduateSchool,jdbcType=VARCHAR},
+		r_experience = #{rExperience,jdbcType=VARCHAR},
+		r_evaluation = #{rEvaluation,jdbcType=VARCHAR},
+		submission_date = #{submissionDate,jdbcType=TIMESTAMP},
+		drafts = #{drafts,jdbcType=VARCHAR},
+		r_state = #{rState,jdbcType=INTEGER},
+		individual_id = #{individualId,jdbcType=INTEGER},
+		recruitment_infoid = #{recruitmentInfoid,jdbcType=INTEGER},
+		e_id = #{eId,jdbcType=INTEGER}
+		where r_id = #{rId,jdbcType=INTEGER}
+	</update>
+
+	<resultMap id="MyBaseResultMap" type="com.zhaopin.model.ResumeInfo">
+		<id column="r_id" property="rId" jdbcType="INTEGER" />
+		<result column="r_name" property="rName" jdbcType="VARCHAR" />
+		<result column="r_sex" property="rSex" jdbcType="VARCHAR" />
+		<result column="r_data_of_birth" property="rDataOfBirth"
+			jdbcType="TIMESTAMP" />
+		<result column="r_tel" property="rTel" jdbcType="VARCHAR" />
+		<result column="r_nation" property="rNation" jdbcType="VARCHAR" />
+		<result column="r_email" property="rEmail" jdbcType="VARCHAR" />
+		<result column="r_post_code" property="rPostCode" jdbcType="INTEGER" />
+		<result column="r_position" property="rPosition" jdbcType="VARCHAR" />
+		<result column="r_domicile" property="rDomicile" jdbcType="VARCHAR" />
+		<result column="r_skill_specialty" property="rSkillSpecialty"
+			jdbcType="VARCHAR" />
+		<result column="r_hobby" property="rHobby" jdbcType="VARCHAR" />
+		<result column="r_education_bg" property="rEducationBg"
+			jdbcType="VARCHAR" />
+		<result column="r_major" property="rMajor" jdbcType="VARCHAR" />
+		<result column="r_graduate_school" property="rGraduateSchool"
+			jdbcType="VARCHAR" />
+		<result column="r_experience" property="rExperience" jdbcType="VARCHAR" />
+		<result column="r_evaluation" property="rEvaluation" jdbcType="VARCHAR" />
+		<result column="submission_date" property="submissionDate"
+			jdbcType="TIMESTAMP" />
+		<result column="drafts" property="drafts" jdbcType="VARCHAR" />
+		<result column="r_state" property="rState" jdbcType="INTEGER" />
+		<result column="individual_id" property="individualId"
+			jdbcType="INTEGER" />
+		<result column="recruitment_infoid" property="recruitmentInfoid"
+			jdbcType="INTEGER" />
+		<result column="e_id" property="eId" jdbcType="INTEGER" />
+		<association property="recruitmentInfo" javaType="com.zhaopin.model.RecruitmentInfo">
+			<id column="i_id" property="iId" jdbcType="INTEGER" />
+			<result column="position" property="position" jdbcType="VARCHAR" />
+			<result column="place" property="place" jdbcType="VARCHAR" />
+			<result column="corporate_name" property="corporateName"
+				jdbcType="VARCHAR" />
+			<result column="salary" property="salary" jdbcType="DECIMAL" />
+			<result column="corporate_sector" property="corporateSector"
+				jdbcType="VARCHAR" />
+			<result column="enterprise_nature" property="enterpriseNature"
+				jdbcType="VARCHAR" />
+			<result column="education" property="education" jdbcType="VARCHAR" />
+			<result column="number_of_recruits" property="numberOfRecruits"
+				jdbcType="INTEGER" />
+			<result column="corporate_welfare" property="corporateWelfare"
+				jdbcType="VARCHAR" />
+			<result column="job_information" property="jobInformation"
+				jdbcType="VARCHAR" />
+			<result column="contact_information" property="contactInformation"
+				jdbcType="VARCHAR" />
+			<result column="company_information" property="companyInformation"
+				jdbcType="VARCHAR" />
+			<result column="release_time" property="releaseTime" jdbcType="TIMESTAMP" />
+			<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+			<result column="enterprise_id" property="enterpriseId"
+				jdbcType="INTEGER" />
+			<result column="state" property="state" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+	<select id="selectAllByExample" resultMap="MyBaseResultMap">
+		SELECT * FROM
+		resume_info a LEFT JOIN recruitment_info b ON
+		a.recruitment_infoid=b.i_id WHERE b.enterprise_id=#{param1} AND
+		a.r_position
+		LIKE #{param2} AND a.r_state=#{param3} AND
+		a.submission_date
+		>=#{param4} AND a.drafts = #{param5}
+	</select>
+
+	<select id="selectByEid" resultMap="BaseResultMap">
+		select * from resume_info
+		WHERE e_id=#{param1} AND r_position LIKE #{param2} AND
+		r_state=#{param3} AND submission_date >= #{param4} AND drafts =
+		#{param5}
+	</select>
+
+	<select id="selectAllByRinfoExample" resultMap="MyBaseResultMap">
+		SELECT * FROM
+		resume_info a LEFT JOIN recruitment_info b ON
+		a.recruitment_infoid=b.i_id
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<!-- 转义字符1.  &lt; < 小于号                                           
+
+         2.  &gt; > 大于号
+
+         3.  &amp; & 和
+
+         4.  &apos; ’ 单引号
+
+         5.  &quot; "  双引号 -->
+
+	<select id="selectAllByIid" resultMap="MyBaseResultMap">
+		SELECT * FROM resume_info
+		a LEFT JOIN recruitment_info b ON b.i_id=a.recruitment_infoid WHERE
+		a.individual_id=#{param1} AND b.corporate_name LIKE #{param2} AND
+		b.place LIKE #{param3}
+		AND b.position like #{param4} AND b.salary  &gt;= #{param5} AND a.drafts LIKE #{param6}
+	</select>
+</mapper>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhaopin.dao.IndividualUserMapper" >
+  <resultMap id="BaseResultMap" type="com.zhaopin.model.IndividualUser" >
+    <id column="i_id" property="iId" jdbcType="INTEGER" />
+    <result column="i_account" property="iAccount" jdbcType="VARCHAR" />
+    <result column="i_password" property="iPassword" jdbcType="VARCHAR" />
+    <result column="i_name" property="iName" jdbcType="VARCHAR" />
+    <result column="i_sex" property="iSex" jdbcType="VARCHAR" />
+    <result column="i_nation" property="iNation" jdbcType="VARCHAR" />
+    <result column="i_data_of_birth" property="iDataOfBirth" jdbcType="TIMESTAMP" />
+    <result column="i_tel" property="iTel" jdbcType="VARCHAR" />
+    <result column="i_post_code" property="iPostCode" jdbcType="INTEGER" />
+    <result column="i_emial" property="iEmial" jdbcType="VARCHAR" />
+    <result column="i_job_intension" property="iJobIntension" jdbcType="VARCHAR" />
+    <result column="i_domicile" property="iDomicile" jdbcType="VARCHAR" />
+    <result column="i_hobby" property="iHobby" jdbcType="VARCHAR" />
+    <result column="i_educational_bg" property="iEducationalBg" jdbcType="VARCHAR" />
+    <result column="i_major" property="iMajor" jdbcType="VARCHAR" />
+    <result column="i_graduate_school" property="iGraduateSchool" jdbcType="VARCHAR" />
+    <result column="i_experience" property="iExperience" jdbcType="VARCHAR" />
+    <result column="i_evaluation" property="iEvaluation" jdbcType="VARCHAR" />
+    <result column="i_skill" property="iSkill" jdbcType="VARCHAR" />
+    <result column="i_regtime" property="iRegtime" jdbcType="TIMESTAMP" />
+    <result column="i_updatatime" property="iUpdatatime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="acc_status" property="accStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    i_id, i_account, i_password, i_name, i_sex, i_nation, i_data_of_birth, i_tel, i_post_code, 
+    i_emial, i_job_intension, i_domicile, i_hobby, i_educational_bg, i_major, i_graduate_school, 
+    i_experience, i_evaluation, i_skill, i_regtime, i_updatatime, type, acc_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zhaopin.model.IndividualUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from individual_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from individual_user
+    where i_id = #{iId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from individual_user
+    where i_id = #{iId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zhaopin.model.IndividualUserExample" >
+    delete from individual_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zhaopin.model.IndividualUser" >
+    insert into individual_user (i_id, i_account, i_password, 
+      i_name, i_sex, i_nation, 
+      i_data_of_birth, i_tel, i_post_code, 
+      i_emial, i_job_intension, i_domicile, 
+      i_hobby, i_educational_bg, i_major, 
+      i_graduate_school, i_experience, i_evaluation, 
+      i_skill, i_regtime, i_updatatime, 
+      type, acc_status)
+    values (#{iId,jdbcType=INTEGER}, #{iAccount,jdbcType=VARCHAR}, #{iPassword,jdbcType=VARCHAR}, 
+      #{iName,jdbcType=VARCHAR}, #{iSex,jdbcType=VARCHAR}, #{iNation,jdbcType=VARCHAR}, 
+      #{iDataOfBirth,jdbcType=TIMESTAMP}, #{iTel,jdbcType=VARCHAR}, #{iPostCode,jdbcType=INTEGER}, 
+      #{iEmial,jdbcType=VARCHAR}, #{iJobIntension,jdbcType=VARCHAR}, #{iDomicile,jdbcType=VARCHAR}, 
+      #{iHobby,jdbcType=VARCHAR}, #{iEducationalBg,jdbcType=VARCHAR}, #{iMajor,jdbcType=VARCHAR}, 
+      #{iGraduateSchool,jdbcType=VARCHAR}, #{iExperience,jdbcType=VARCHAR}, #{iEvaluation,jdbcType=VARCHAR}, 
+      #{iSkill,jdbcType=VARCHAR}, #{iRegtime,jdbcType=TIMESTAMP}, #{iUpdatatime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=VARCHAR}, #{accStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhaopin.model.IndividualUser" >
+    insert into individual_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        i_id,
+      </if>
+      <if test="iAccount != null" >
+        i_account,
+      </if>
+      <if test="iPassword != null" >
+        i_password,
+      </if>
+      <if test="iName != null" >
+        i_name,
+      </if>
+      <if test="iSex != null" >
+        i_sex,
+      </if>
+      <if test="iNation != null" >
+        i_nation,
+      </if>
+      <if test="iDataOfBirth != null" >
+        i_data_of_birth,
+      </if>
+      <if test="iTel != null" >
+        i_tel,
+      </if>
+      <if test="iPostCode != null" >
+        i_post_code,
+      </if>
+      <if test="iEmial != null" >
+        i_emial,
+      </if>
+      <if test="iJobIntension != null" >
+        i_job_intension,
+      </if>
+      <if test="iDomicile != null" >
+        i_domicile,
+      </if>
+      <if test="iHobby != null" >
+        i_hobby,
+      </if>
+      <if test="iEducationalBg != null" >
+        i_educational_bg,
+      </if>
+      <if test="iMajor != null" >
+        i_major,
+      </if>
+      <if test="iGraduateSchool != null" >
+        i_graduate_school,
+      </if>
+      <if test="iExperience != null" >
+        i_experience,
+      </if>
+      <if test="iEvaluation != null" >
+        i_evaluation,
+      </if>
+      <if test="iSkill != null" >
+        i_skill,
+      </if>
+      <if test="iRegtime != null" >
+        i_regtime,
+      </if>
+      <if test="iUpdatatime != null" >
+        i_updatatime,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="accStatus != null" >
+        acc_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        #{iId,jdbcType=INTEGER},
+      </if>
+      <if test="iAccount != null" >
+        #{iAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="iPassword != null" >
+        #{iPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="iName != null" >
+        #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iSex != null" >
+        #{iSex,jdbcType=VARCHAR},
+      </if>
+      <if test="iNation != null" >
+        #{iNation,jdbcType=VARCHAR},
+      </if>
+      <if test="iDataOfBirth != null" >
+        #{iDataOfBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iTel != null" >
+        #{iTel,jdbcType=VARCHAR},
+      </if>
+      <if test="iPostCode != null" >
+        #{iPostCode,jdbcType=INTEGER},
+      </if>
+      <if test="iEmial != null" >
+        #{iEmial,jdbcType=VARCHAR},
+      </if>
+      <if test="iJobIntension != null" >
+        #{iJobIntension,jdbcType=VARCHAR},
+      </if>
+      <if test="iDomicile != null" >
+        #{iDomicile,jdbcType=VARCHAR},
+      </if>
+      <if test="iHobby != null" >
+        #{iHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="iEducationalBg != null" >
+        #{iEducationalBg,jdbcType=VARCHAR},
+      </if>
+      <if test="iMajor != null" >
+        #{iMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="iGraduateSchool != null" >
+        #{iGraduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="iExperience != null" >
+        #{iExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="iEvaluation != null" >
+        #{iEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="iSkill != null" >
+        #{iSkill,jdbcType=VARCHAR},
+      </if>
+      <if test="iRegtime != null" >
+        #{iRegtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iUpdatatime != null" >
+        #{iUpdatatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="accStatus != null" >
+        #{accStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zhaopin.model.IndividualUserExample" resultType="java.lang.Integer" >
+    select count(*) from individual_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update individual_user
+    <set >
+      <if test="record.iId != null" >
+        i_id = #{record.iId,jdbcType=INTEGER},
+      </if>
+      <if test="record.iAccount != null" >
+        i_account = #{record.iAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iPassword != null" >
+        i_password = #{record.iPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iName != null" >
+        i_name = #{record.iName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iSex != null" >
+        i_sex = #{record.iSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iNation != null" >
+        i_nation = #{record.iNation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iDataOfBirth != null" >
+        i_data_of_birth = #{record.iDataOfBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.iTel != null" >
+        i_tel = #{record.iTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iPostCode != null" >
+        i_post_code = #{record.iPostCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.iEmial != null" >
+        i_emial = #{record.iEmial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iJobIntension != null" >
+        i_job_intension = #{record.iJobIntension,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iDomicile != null" >
+        i_domicile = #{record.iDomicile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iHobby != null" >
+        i_hobby = #{record.iHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iEducationalBg != null" >
+        i_educational_bg = #{record.iEducationalBg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iMajor != null" >
+        i_major = #{record.iMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iGraduateSchool != null" >
+        i_graduate_school = #{record.iGraduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iExperience != null" >
+        i_experience = #{record.iExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iEvaluation != null" >
+        i_evaluation = #{record.iEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iSkill != null" >
+        i_skill = #{record.iSkill,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iRegtime != null" >
+        i_regtime = #{record.iRegtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.iUpdatatime != null" >
+        i_updatatime = #{record.iUpdatatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accStatus != null" >
+        acc_status = #{record.accStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update individual_user
+    set i_id = #{record.iId,jdbcType=INTEGER},
+      i_account = #{record.iAccount,jdbcType=VARCHAR},
+      i_password = #{record.iPassword,jdbcType=VARCHAR},
+      i_name = #{record.iName,jdbcType=VARCHAR},
+      i_sex = #{record.iSex,jdbcType=VARCHAR},
+      i_nation = #{record.iNation,jdbcType=VARCHAR},
+      i_data_of_birth = #{record.iDataOfBirth,jdbcType=TIMESTAMP},
+      i_tel = #{record.iTel,jdbcType=VARCHAR},
+      i_post_code = #{record.iPostCode,jdbcType=INTEGER},
+      i_emial = #{record.iEmial,jdbcType=VARCHAR},
+      i_job_intension = #{record.iJobIntension,jdbcType=VARCHAR},
+      i_domicile = #{record.iDomicile,jdbcType=VARCHAR},
+      i_hobby = #{record.iHobby,jdbcType=VARCHAR},
+      i_educational_bg = #{record.iEducationalBg,jdbcType=VARCHAR},
+      i_major = #{record.iMajor,jdbcType=VARCHAR},
+      i_graduate_school = #{record.iGraduateSchool,jdbcType=VARCHAR},
+      i_experience = #{record.iExperience,jdbcType=VARCHAR},
+      i_evaluation = #{record.iEvaluation,jdbcType=VARCHAR},
+      i_skill = #{record.iSkill,jdbcType=VARCHAR},
+      i_regtime = #{record.iRegtime,jdbcType=TIMESTAMP},
+      i_updatatime = #{record.iUpdatatime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=VARCHAR},
+      acc_status = #{record.accStatus,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhaopin.model.IndividualUser" >
+    update individual_user
+    <set >
+      <if test="iAccount != null" >
+        i_account = #{iAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="iPassword != null" >
+        i_password = #{iPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="iName != null" >
+        i_name = #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iSex != null" >
+        i_sex = #{iSex,jdbcType=VARCHAR},
+      </if>
+      <if test="iNation != null" >
+        i_nation = #{iNation,jdbcType=VARCHAR},
+      </if>
+      <if test="iDataOfBirth != null" >
+        i_data_of_birth = #{iDataOfBirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iTel != null" >
+        i_tel = #{iTel,jdbcType=VARCHAR},
+      </if>
+      <if test="iPostCode != null" >
+        i_post_code = #{iPostCode,jdbcType=INTEGER},
+      </if>
+      <if test="iEmial != null" >
+        i_emial = #{iEmial,jdbcType=VARCHAR},
+      </if>
+      <if test="iJobIntension != null" >
+        i_job_intension = #{iJobIntension,jdbcType=VARCHAR},
+      </if>
+      <if test="iDomicile != null" >
+        i_domicile = #{iDomicile,jdbcType=VARCHAR},
+      </if>
+      <if test="iHobby != null" >
+        i_hobby = #{iHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="iEducationalBg != null" >
+        i_educational_bg = #{iEducationalBg,jdbcType=VARCHAR},
+      </if>
+      <if test="iMajor != null" >
+        i_major = #{iMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="iGraduateSchool != null" >
+        i_graduate_school = #{iGraduateSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="iExperience != null" >
+        i_experience = #{iExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="iEvaluation != null" >
+        i_evaluation = #{iEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="iSkill != null" >
+        i_skill = #{iSkill,jdbcType=VARCHAR},
+      </if>
+      <if test="iRegtime != null" >
+        i_regtime = #{iRegtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="iUpdatatime != null" >
+        i_updatatime = #{iUpdatatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="accStatus != null" >
+        acc_status = #{accStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhaopin.model.IndividualUser" >
+    update individual_user
+    set i_account = #{iAccount,jdbcType=VARCHAR},
+      i_password = #{iPassword,jdbcType=VARCHAR},
+      i_name = #{iName,jdbcType=VARCHAR},
+      i_sex = #{iSex,jdbcType=VARCHAR},
+      i_nation = #{iNation,jdbcType=VARCHAR},
+      i_data_of_birth = #{iDataOfBirth,jdbcType=TIMESTAMP},
+      i_tel = #{iTel,jdbcType=VARCHAR},
+      i_post_code = #{iPostCode,jdbcType=INTEGER},
+      i_emial = #{iEmial,jdbcType=VARCHAR},
+      i_job_intension = #{iJobIntension,jdbcType=VARCHAR},
+      i_domicile = #{iDomicile,jdbcType=VARCHAR},
+      i_hobby = #{iHobby,jdbcType=VARCHAR},
+      i_educational_bg = #{iEducationalBg,jdbcType=VARCHAR},
+      i_major = #{iMajor,jdbcType=VARCHAR},
+      i_graduate_school = #{iGraduateSchool,jdbcType=VARCHAR},
+      i_experience = #{iExperience,jdbcType=VARCHAR},
+      i_evaluation = #{iEvaluation,jdbcType=VARCHAR},
+      i_skill = #{iSkill,jdbcType=VARCHAR},
+      i_regtime = #{iRegtime,jdbcType=TIMESTAMP},
+      i_updatatime = #{iUpdatatime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      acc_status = #{accStatus,jdbcType=INTEGER}
+    where i_id = #{iId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectUserByAccAndPwd" resultType="com.zhaopin.model.IndividualUser" >
+  	SELECT * from individual_user WHERE i_account=#{param1} AND i_password=#{param2}
+  </select>
+</mapper>

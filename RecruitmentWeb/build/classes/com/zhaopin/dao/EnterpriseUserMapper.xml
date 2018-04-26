@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhaopin.dao.EnterpriseUserMapper">
+	<resultMap id="BaseResultMap" type="com.zhaopin.model.EnterpriseUser">
+		<id column="e_id" property="eId" jdbcType="INTEGER" />
+		<result column="e_account" property="eAccount" jdbcType="VARCHAR" />
+		<result column="e_password" property="ePassword" jdbcType="VARCHAR" />
+		<result column="e_company_name" property="eCompanyName"
+			jdbcType="VARCHAR" />
+		<result column="e_corporate_sector" property="eCorporateSector"
+			jdbcType="VARCHAR" />
+		<result column="e_enterprise_nature" property="eEnterpriseNature"
+			jdbcType="VARCHAR" />
+		<result column="e_company_info" property="eCompanyInfo"
+			jdbcType="VARCHAR" />
+		<result column="e_address" property="eAddress" jdbcType="VARCHAR" />
+		<result column="e_contacts" property="eContacts" jdbcType="VARCHAR" />
+		<result column="e_contact_number" property="eContactNumber"
+			jdbcType="VARCHAR" />
+		<result column="e_phone_number" property="ePhoneNumber"
+			jdbcType="VARCHAR" />
+		<result column="e_email" property="eEmail" jdbcType="VARCHAR" />
+		<result column="e_regtime" property="eRegtime" jdbcType="TIMESTAMP" />
+		<result column="e_updatatime" property="eUpdatatime" jdbcType="TIMESTAMP" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="acc_status" property="accStatus" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		e_id, e_account, e_password, e_company_name,
+		e_corporate_sector,
+		e_enterprise_nature,
+		e_company_info, e_address,
+		e_contacts, e_contact_number, e_phone_number, e_email,
+		e_regtime,
+		e_updatatime, type, acc_status
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.zhaopin.model.EnterpriseUserExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from enterprise_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from enterprise_user
+		where e_id = #{eId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		enterprise_user
+		where e_id = #{eId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.zhaopin.model.EnterpriseUserExample">
+		delete from enterprise_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.zhaopin.model.EnterpriseUser">
+		insert into enterprise_user
+		(e_id, e_account, e_password,
+		e_company_name, e_corporate_sector,
+		e_enterprise_nature,
+		e_company_info, e_address, e_contacts,
+		e_contact_number, e_phone_number, e_email,
+		e_regtime, e_updatatime,
+		type,
+		acc_status)
+		values (#{eId,jdbcType=INTEGER},
+		#{eAccount,jdbcType=VARCHAR},
+		#{ePassword,jdbcType=VARCHAR},
+		#{eCompanyName,jdbcType=VARCHAR},
+		#{eCorporateSector,jdbcType=VARCHAR},
+		#{eEnterpriseNature,jdbcType=VARCHAR},
+		#{eCompanyInfo,jdbcType=VARCHAR}, #{eAddress,jdbcType=VARCHAR},
+		#{eContacts,jdbcType=VARCHAR},
+		#{eContactNumber,jdbcType=VARCHAR},
+		#{ePhoneNumber,jdbcType=VARCHAR}, #{eEmail,jdbcType=VARCHAR},
+		#{eRegtime,jdbcType=TIMESTAMP}, #{eUpdatatime,jdbcType=TIMESTAMP},
+		#{type,jdbcType=VARCHAR},
+		#{accStatus,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zhaopin.model.EnterpriseUser">
+		insert into enterprise_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="eId != null">
+				e_id,
+			</if>
+			<if test="eAccount != null">
+				e_account,
+			</if>
+			<if test="ePassword != null">
+				e_password,
+			</if>
+			<if test="eCompanyName != null">
+				e_company_name,
+			</if>
+			<if test="eCorporateSector != null">
+				e_corporate_sector,
+			</if>
+			<if test="eEnterpriseNature != null">
+				e_enterprise_nature,
+			</if>
+			<if test="eCompanyInfo != null">
+				e_company_info,
+			</if>
+			<if test="eAddress != null">
+				e_address,
+			</if>
+			<if test="eContacts != null">
+				e_contacts,
+			</if>
+			<if test="eContactNumber != null">
+				e_contact_number,
+			</if>
+			<if test="ePhoneNumber != null">
+				e_phone_number,
+			</if>
+			<if test="eEmail != null">
+				e_email,
+			</if>
+			<if test="eRegtime != null">
+				e_regtime,
+			</if>
+			<if test="eUpdatatime != null">
+				e_updatatime,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="accStatus != null">
+				acc_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="eId != null">
+				#{eId,jdbcType=INTEGER},
+			</if>
+			<if test="eAccount != null">
+				#{eAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="ePassword != null">
+				#{ePassword,jdbcType=VARCHAR},
+			</if>
+			<if test="eCompanyName != null">
+				#{eCompanyName,jdbcType=VARCHAR},
+			</if>
+			<if test="eCorporateSector != null">
+				#{eCorporateSector,jdbcType=VARCHAR},
+			</if>
+			<if test="eEnterpriseNature != null">
+				#{eEnterpriseNature,jdbcType=VARCHAR},
+			</if>
+			<if test="eCompanyInfo != null">
+				#{eCompanyInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="eAddress != null">
+				#{eAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="eContacts != null">
+				#{eContacts,jdbcType=VARCHAR},
+			</if>
+			<if test="eContactNumber != null">
+				#{eContactNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="ePhoneNumber != null">
+				#{ePhoneNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="eEmail != null">
+				#{eEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="eRegtime != null">
+				#{eRegtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="eUpdatatime != null">
+				#{eUpdatatime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="accStatus != null">
+				#{accStatus,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.zhaopin.model.EnterpriseUserExample"
+		resultType="java.lang.Integer">
+		select count(*) from enterprise_user
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update enterprise_user
+		<set>
+			<if test="record.eId != null">
+				e_id = #{record.eId,jdbcType=INTEGER},
+			</if>
+			<if test="record.eAccount != null">
+				e_account = #{record.eAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ePassword != null">
+				e_password = #{record.ePassword,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eCompanyName != null">
+				e_company_name = #{record.eCompanyName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eCorporateSector != null">
+				e_corporate_sector =
+				#{record.eCorporateSector,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eEnterpriseNature != null">
+				e_enterprise_nature =
+				#{record.eEnterpriseNature,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eCompanyInfo != null">
+				e_company_info = #{record.eCompanyInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eAddress != null">
+				e_address = #{record.eAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eContacts != null">
+				e_contacts = #{record.eContacts,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eContactNumber != null">
+				e_contact_number =
+				#{record.eContactNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ePhoneNumber != null">
+				e_phone_number = #{record.ePhoneNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eEmail != null">
+				e_email = #{record.eEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="record.eRegtime != null">
+				e_regtime = #{record.eRegtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.eUpdatatime != null">
+				e_updatatime = #{record.eUpdatatime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.type != null">
+				type = #{record.type,jdbcType=VARCHAR},
+			</if>
+			<if test="record.accStatus != null">
+				acc_status = #{record.accStatus,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update enterprise_user
+		set e_id = #{record.eId,jdbcType=INTEGER},
+		e_account = #{record.eAccount,jdbcType=VARCHAR},
+		e_password =
+		#{record.ePassword,jdbcType=VARCHAR},
+		e_company_name =
+		#{record.eCompanyName,jdbcType=VARCHAR},
+		e_corporate_sector =
+		#{record.eCorporateSector,jdbcType=VARCHAR},
+		e_enterprise_nature =
+		#{record.eEnterpriseNature,jdbcType=VARCHAR},
+		e_company_info =
+		#{record.eCompanyInfo,jdbcType=VARCHAR},
+		e_address =
+		#{record.eAddress,jdbcType=VARCHAR},
+		e_contacts =
+		#{record.eContacts,jdbcType=VARCHAR},
+		e_contact_number =
+		#{record.eContactNumber,jdbcType=VARCHAR},
+		e_phone_number =
+		#{record.ePhoneNumber,jdbcType=VARCHAR},
+		e_email =
+		#{record.eEmail,jdbcType=VARCHAR},
+		e_regtime =
+		#{record.eRegtime,jdbcType=TIMESTAMP},
+		e_updatatime =
+		#{record.eUpdatatime,jdbcType=TIMESTAMP},
+		type =
+		#{record.type,jdbcType=VARCHAR},
+		acc_status =
+		#{record.accStatus,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zhaopin.model.EnterpriseUser">
+		update enterprise_user
+		<set>
+			<if test="eAccount != null">
+				e_account = #{eAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="ePassword != null">
+				e_password = #{ePassword,jdbcType=VARCHAR},
+			</if>
+			<if test="eCompanyName != null">
+				e_company_name = #{eCompanyName,jdbcType=VARCHAR},
+			</if>
+			<if test="eCorporateSector != null">
+				e_corporate_sector =
+				#{eCorporateSector,jdbcType=VARCHAR},
+			</if>
+			<if test="eEnterpriseNature != null">
+				e_enterprise_nature =
+				#{eEnterpriseNature,jdbcType=VARCHAR},
+			</if>
+			<if test="eCompanyInfo != null">
+				e_company_info = #{eCompanyInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="eAddress != null">
+				e_address = #{eAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="eContacts != null">
+				e_contacts = #{eContacts,jdbcType=VARCHAR},
+			</if>
+			<if test="eContactNumber != null">
+				e_contact_number = #{eContactNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="ePhoneNumber != null">
+				e_phone_number = #{ePhoneNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="eEmail != null">
+				e_email = #{eEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="eRegtime != null">
+				e_regtime = #{eRegtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="eUpdatatime != null">
+				e_updatatime = #{eUpdatatime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="accStatus != null">
+				acc_status = #{accStatus,jdbcType=INTEGER},
+			</if>
+		</set>
+		where e_id = #{eId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zhaopin.model.EnterpriseUser">
+		update
+		enterprise_user
+		set e_account = #{eAccount,jdbcType=VARCHAR},
+		e_password = #{ePassword,jdbcType=VARCHAR},
+		e_company_name =
+		#{eCompanyName,jdbcType=VARCHAR},
+		e_corporate_sector =
+		#{eCorporateSector,jdbcType=VARCHAR},
+		e_enterprise_nature =
+		#{eEnterpriseNature,jdbcType=VARCHAR},
+		e_company_info =
+		#{eCompanyInfo,jdbcType=VARCHAR},
+		e_address =
+		#{eAddress,jdbcType=VARCHAR},
+		e_contacts =
+		#{eContacts,jdbcType=VARCHAR},
+		e_contact_number =
+		#{eContactNumber,jdbcType=VARCHAR},
+		e_phone_number =
+		#{ePhoneNumber,jdbcType=VARCHAR},
+		e_email = #{eEmail,jdbcType=VARCHAR},
+		e_regtime = #{eRegtime,jdbcType=TIMESTAMP},
+		e_updatatime =
+		#{eUpdatatime,jdbcType=TIMESTAMP},
+		type = #{type,jdbcType=VARCHAR},
+		acc_status = #{accStatus,jdbcType=INTEGER}
+		where e_id =
+		#{eId,jdbcType=INTEGER}
+	</update>
+	<resultMap id="MyBaseResultMap" type="com.zhaopin.model.EnterpriseUser">
+		<id column="e_id" property="eId" jdbcType="INTEGER" />
+		<result column="e_account" property="eAccount" jdbcType="VARCHAR" />
+		<result column="e_password" property="ePassword" jdbcType="VARCHAR" />
+		<result column="e_company_name" property="eCompanyName"
+			jdbcType="VARCHAR" />
+		<result column="e_corporate_sector" property="eCorporateSector"
+			jdbcType="VARCHAR" />
+		<result column="e_enterprise_nature" property="eEnterpriseNature"
+			jdbcType="VARCHAR" />
+		<result column="e_company_info" property="eCompanyInfo"
+			jdbcType="VARCHAR" />
+		<result column="e_address" property="eAddress" jdbcType="VARCHAR" />
+		<result column="e_contacts" property="eContacts" jdbcType="VARCHAR" />
+		<result column="e_contact_number" property="eContactNumber"
+			jdbcType="VARCHAR" />
+		<result column="e_phone_number" property="ePhoneNumber"
+			jdbcType="VARCHAR" />
+		<result column="e_email" property="eEmail" jdbcType="VARCHAR" />
+		<result column="e_regtime" property="eRegtime" jdbcType="TIMESTAMP" />
+		<result column="e_updatatime" property="eUpdatatime" jdbcType="TIMESTAMP" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="acc_status" property="accStatus" jdbcType="INTEGER" />
+		<collection property="recruitmentInfos" ofType="com.zhaopin.model.RecruitmentInfo">
+			<id column="i_id" property="iId" jdbcType="INTEGER" />
+			<result column="position" property="position" jdbcType="VARCHAR" />
+			<result column="place" property="place" jdbcType="VARCHAR" />
+			<result column="corporate_name" property="corporateName"
+				jdbcType="VARCHAR" />
+			<result column="salary" property="salary" jdbcType="DECIMAL" />
+			<result column="corporate_sector" property="corporateSector"
+				jdbcType="VARCHAR" />
+			<result column="enterprise_nature" property="enterpriseNature"
+				jdbcType="VARCHAR" />
+			<result column="education" property="education" jdbcType="VARCHAR" />
+			<result column="number_of_recruits" property="numberOfRecruits"
+				jdbcType="INTEGER" />
+			<result column="corporate_welfare" property="corporateWelfare"
+				jdbcType="VARCHAR" />
+			<result column="job_information" property="jobInformation"
+				jdbcType="VARCHAR" />
+			<result column="contact_information" property="contactInformation"
+				jdbcType="VARCHAR" />
+			<result column="company_information" property="companyInformation"
+				jdbcType="VARCHAR" />
+			<result column="release_time" property="releaseTime" jdbcType="TIMESTAMP" />
+			<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+			<result column="enterprise_id" property="enterpriseId"
+				jdbcType="INTEGER" />
+			<result column="state" property="state" jdbcType="INTEGER" />
+		</collection>
+	</resultMap>
+
+	<select id="selectByAccountAndTime" resultMap="MyBaseResultMap">
+		select * FROM
+		enterprise_user a LEFT JOIN recruitment_info b ON
+		a.e_id=b.enterprise_id WHERE a.e_account LIKE #{param1} AND
+		b.update_time >=#{param2}
+	</select>
+
+	<select id="selectAllByexample" resultMap="MyBaseResultMap">
+		SELECT * FROM
+		enterprise_user a LEFT JOIN recruitment_info b ON
+		a.e_id=b.enterprise_id
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectUserByAccAndPwd" resultType="com.zhaopin.model.EnterpriseUser">
+		SELECT * from
+		enterprise_user WHERE e_account=#{param1} AND e_password =#{param2}
+	</select>
+
+	
+</mapper>

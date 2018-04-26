@@ -1,0 +1,23 @@
+body{
+  padding: 70px;
+  width: 100%;
+  height:auto;
+  background:url(../images/bgimg.jpg) no-repeat;
+  background-size: 100%;
+	
+}
+td{
+	text-align: center;
+}
+head,footer,nav,div,section,aside,article,p{
+	border-radius: 5px;
+}
+/*a��ǩ�������ȥȥ���»���*/
+a,a:hover{
+	text-decoration: none;
+}
+
+/*��divContent������С�߶�*/
+.divContent{
+	min-height: 500px;
+}
